@@ -3,18 +3,30 @@
 This repository contains OpenEmbedded/Yocto SDK for Smart Core silicon
 chips.
 
-## Quick Start
+## Pre-requisites
 
-Install `repo` command from Google if not available on your host system.
-Please follow [the official instructions](https://source.android.com/setup/develop#installing-repo) by Google.
+First, you need to install `repo` from Google, please refer to [the
+following instructionss](https://source.android.com/setup/develop#installing-repo).
 
-Then install a number of packages for BitBake (OE build tool) to work
-properly on your host system. BitBake itself depends on Python 3. Once you
-have Python 3 installed BitBake should be able to tell you most of the
-missing packages.
-
+Second, you need to install packages for OE build tool - BitBake to work
+properly. The BitBake tool depends on Python 3. Please refer to [the
+following instructions](http://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host).
 > For Ubuntu 18.04 (or newer) install python3-distutils package.
 
-Detailed instructions for various distributions can be found in
-"[Required Packages for the Build Host](http://docs.yoctoproject.org/ref-manual/system-requirements.html#required-packages-for-the-build-host)" section in Yocto Project Reference Manual.
+You need to perform the following commads every time you want a clean
+setup based on the latest layers.
 
+```bash
+mkdir riscv-smarco && cd riscv-smarco
+repo init -u https://github.com/smarco-mc/smarco-sdk -m tools/manifests/smarco.xml
+repo sync
+```
+
+### Creating a Working Branch
+
+If you want to make modifications to existing layers then creating working
+branches in all repositories is advisable.
+
+```bash
+repo start work --all
+```
