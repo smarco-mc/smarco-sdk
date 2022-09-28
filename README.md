@@ -30,3 +30,63 @@ branches in all repositories is advisable.
 ```bash
 repo start work --all
 ```
+
+### Getting Build Tools (optional)
+
+OpenEmbedded-Core requires GCC 6 or newer to be available on the host
+system. Your host system might have an older version of GCC if you use LTS
+(Long Term Support) Linux distribution (e.g. Ubuntu 16.04.6 has GCC
+5.4.0).
+
+#### Building Your Own Build Tools
+
+To build your own build tools execute the command below:
+
+```bash
+bitbake buildtools-extended-tarball
+```
+
+You can find the native SDK under `$BUILDDIR/tmp-glibc/deploy/sdk/` directory.
+
+Now you can install build tools:
+
+```bash
+$BUILDDIR/tmp-glibc/deploy/sdk/x86_64-buildtools-extended-nativesdk-standalone-nodistro.0.sh -d $BUILDDIR/../openembedded-core/buildtools -y
+```
+
+Finally you should be able to use your build tools:
+
+```bash
+. $BUILDDIR/../openembedded-core/buildtools/environment-setup-x86_64-oesdk-linux
+```
+
+### Setting up Build Environment
+
+This step has to be done after you modify your environment with toolchain
+you want to use otherwise wrong host tools might be available in the
+package build environment. For example, `gcc` from host system will be
+used for building `*-native` packages.
+
+```bash
+. ./smarco-sdk/setup.sh
+```
+
+> You can verify and fix your host tools by checking symlinks in
+  `$BUILDDIR/tmp-glibc/hosttools` directory.
+
+### Configuring BitBake Parallel Number of Tasks/Jobs
+
+There are 3 variables that control the number of parallel tasks/jobs
+BitBake will use: `BB_NUMBER_PARSE_THREADS`, `BB_NUMBER_THREADS` and
+`PARALLEL_MAKE`. The last two are the most important, and both are set to
+number of cores available on the system. You can set them in your
+`$BUILDDIR/conf/local.conf` or in your shell environment similar to how
+`MACHINE` is used (see next section). Example:
+
+```bash
+PARALLEL_MAKE="-j 4" BB_NUMBER_THREADS=4 MACHINE=duowen bitbake demo-coreip-cli
+```
+
+Leaving defaults could cause high load averages, high memory usage, high
+IO wait and could make your system unresponsive due to resources overuse.
+The defaults should be changed based on your system configuration.
