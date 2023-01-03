@@ -38,11 +38,28 @@ system. Your host system might have an older version of GCC if you use LTS
 (Long Term Support) Linux distribution (e.g. Ubuntu 16.04.6 has GCC
 5.4.0).
 
-#### Building Your Own Build Tools
-
-To build your own build tools execute the command below:
+#### Installing OpenEmbedded-Core Build Tools (Pre-Built)
 
 ```bash
+./openembedded-core/scripts/install-buildtools -r yocto-3.2_M2 -V '3.1+snapshot' -t 20200729
+```
+
+The native SDK will be installed under `$BUILDDIR/../openembedded-core/buildtools` prefix.
+
+Finally you should be able to use build tools:
+
+```bash
+. ./openembedded-core/buildtools/environment-setup-x86_64-pokysdk-linux
+```
+
+#### Building Your Own Build Tools
+
+To build your own build tools execute the command below (e.x., BUILDDIR
+points to build which is under current directory (riscv-smarco):
+
+```bash
+mkdir -p $BUILDDIR
+. ./openembedded-core/oe-init-build-env $BUILDDIR
 bitbake buildtools-extended-tarball
 ```
 
