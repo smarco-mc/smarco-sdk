@@ -57,7 +57,7 @@ bitbake-layers add-layer ../meta-openembedded/meta-gnome
 bitbake-layers add-layer ../meta-openembedded/meta-xfce
 bitbake-layers add-layer ../meta-riscv
 bitbake-layers add-layer ../meta-clang
-bitbake-layers add-layer ../meta-sifive
+bitbake-layers add-layer ../meta-smarco
 bitbake-layers add-layer ../smarco-sdk
 
 # fix the configuration
