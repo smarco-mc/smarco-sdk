@@ -29,7 +29,10 @@ do
 	case $opt in
 	d) CLONEDIR=$OPTARG;;
 	f) FORCERMD=yes;;
-	n) CNFGNAME=$OPTARG;;
+	n) if [ "x$OPTARG" != "x${CNFGNAME}" ]; then
+		CNFGNAME=$OPTARG
+		CHNGCNFG=" --config-name"
+	   fi;;
 	s) STARTWBR=yes;;
 	?) echo "Invalid argument $opt"
 	   fatal_usage;;
@@ -37,17 +40,16 @@ do
 done
 shift $(($OPTIND - 1))
 
-echo "Cloning to ${CLONEDIR}..."
 echo "Configuring name to ${CNFGNAME}"
 (
 	if [ "x${FORCERMD}" = "xyes" ]; then
+		echo "Removing ${CLONEDIR}..."
 		rm -rf ${CLONEDIR}
 	fi
+	echo "Creating ${CLONEDIR}..."
 	mkdir -p ${CLONEDIR}
 	cd ${CLONEDIR}
-	repo init -u https://github.com/smarco-mc/smarco-sdk \
-		  -m tools/manifests/smarco.xml \
-		  --config-name "${CNFGNAME}"
+	repo init ${CHNGCNFG} -u https://github.com/smarco-mc/smarco-sdk -m tools/manifests/smarco.xml
 	repo sync
 	if [ "x${STARTWBR}" = "xyes" ]; then
 		repo start work --all
