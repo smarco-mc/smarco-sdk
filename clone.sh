@@ -3,17 +3,19 @@
 SCRIPT=`(cd \`dirname $0\`; pwd)`
 CLONEDIR=`(cd ${SCRIPT}/..; pwd)`/riscv-smarco
 CNFGNAME="Lv Zheng <zhenglv@smart-core.cn>"
+INITREPO=yes
 
 usage()
 {
 	echo "Usage:"
-	echo "`basename $0` [-d dir] [-f] [-n name] [-s]"
+	echo "`basename $0` [-d dir] [-f] [-i] [-n name] [-s]"
 	echo "Where:"
 	echo " -d:          repo working directory"
 	echo "              default $CLONEDIR"
 	echo " -f:          force removing directory and re-cloning"
 	echo " -n:          repo configuration name"
 	echo "              default $CNFGNAME"
+	echo " -i:          ignore repo initialization"
 	echo " -s:          start repo working branches"
 	exit $1
 }
@@ -24,11 +26,12 @@ fatal_usage()
 	usage 1
 }
 
-while getopts "d:fn:s" opt
+while getopts "d:fin:s" opt
 do
 	case $opt in
 	d) CLONEDIR=$OPTARG;;
 	f) FORCERMD=yes;;
+	i) INITREPO=no;;
 	n) if [ "x$OPTARG" != "x${CNFGNAME}" ]; then
 		CNFGNAME=$OPTARG
 		CHNGCNFG=" --config-name"
@@ -49,7 +52,9 @@ echo "Configuring name to ${CNFGNAME}"
 	echo "Creating ${CLONEDIR}..."
 	mkdir -p ${CLONEDIR}
 	cd ${CLONEDIR}
-	repo init ${CHNGCNFG} -u https://github.com/smarco-mc/smarco-sdk -m tools/manifests/smarco.xml
+	if [ "x${INITREPO}" = "xyes" ]; then
+		repo init ${CHNGCNFG} -u https://github.com/smarco-mc/smarco-sdk -m tools/manifests/smarco.xml
+	fi
 	repo sync
 	if [ "x${STARTWBR}" = "xyes" ]; then
 		repo start work --all
