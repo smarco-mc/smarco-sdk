@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT=`(cd \`dirname $0\`; pwd)`
 CLONEDIR=`(cd ${SCRIPT}/..; pwd)`/riscv-smarco

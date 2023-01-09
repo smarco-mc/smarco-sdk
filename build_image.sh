@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT=`(cd \`dirname $0\`; pwd)`
 CLONEDIR=`(cd ${SCRIPT}/..; pwd)`/riscv-smarco
@@ -38,10 +38,11 @@ done
 shift $(($OPTIND - 1))
 
 echo "Working in ${CLONEDIR}..."
-echo "Building tools in ${BUILDDIR}..."
+echo "Building image in ${BUILDDIR}..."
 (
 	cd ${CLONEDIR}
 	mkdir -p ${BUILDDIR}
+	cd build
 	. ./smarco-sdk/setup.sh ${BUILDDIR}
 	MACHINE=${MACHINE} bitbake demo-coreip-cli
 )
