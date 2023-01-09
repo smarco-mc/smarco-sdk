@@ -3,8 +3,8 @@
 
   <default remote="github" revision="master" />
 
-  <project name="smarco-mc/smarco-sdk" path="smarco-sdk" revision="30d6ff975da9c55c9a26e2c86f610cd703ac822a" />
-  <project name="smarco-mc/meta-smarco" path="meta-smarco" revision="e86908e1ffe387dc2395c74c062c27819ba371dc" />
+  <project name="smarco-mc/smarco-sdk" path="smarco-sdk" revision="0c0200ddfd0a79268d8904b511499d94a81b396f" />
+  <project name="smarco-mc/meta-smarco" path="meta-smarco" revision="f439bd109a5c2a62eb54ec070aad199fceea1600" />
   <project name="riscv/meta-riscv" path="meta-riscv" revision="96b34d09763126b337df363e091d364ebb140bef" />
   <project name="openembedded/openembedded-core" path="openembedded-core" revision="b3114d5d438b7a63a276b4e825b62f3b1ebceed6" />
   <project name="openembedded/bitbake" path="openembedded-core/bitbake" revision="41eeb4f34fb2306303f7688ec5e0ae965a573aa4" />
