@@ -36,6 +36,9 @@ shift $(($OPTIND - 1))
 echo "Working in ${CLONEDIR}..."
 echo "Building tools in ${BUILDDIR}..."
 (
+	# Removing old builds
+	rm -rf ${BUILDDIR}/tmp-glibc/deploy/sdk
+	rm -rf ${CLONEDIR}/openembedded-core/buildtools
 	cd ${CLONEDIR}
 	mkdir -p ${BUILDDIR}
 	. ./smarco-sdk/setup.sh ${BUILDDIR}
