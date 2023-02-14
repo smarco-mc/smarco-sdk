@@ -59,7 +59,7 @@ points to build which is under current directory (riscv-smarco):
 
 ```bash
 mkdir -p $BUILDDIR
-. ./openembedded-core/oe-init-build-env $BUILDDIR
+. ./smarco-sdk/setup.sh $BUILDDIR
 bitbake buildtools-extended-tarball
 ```
 
