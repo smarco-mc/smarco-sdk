@@ -1,4 +1,4 @@
-DESCRIPTION = "SmarCo RISC-V Demo Benchmarks Linux image"
+DESCRIPTION = "SmarCo RISC-V Core IP Demo Benchmarks Linux image"
 
 IMAGE_FEATURES += "\
     splash \
@@ -8,7 +8,10 @@ IMAGE_FEATURES += "\
     tools-profile \
     doc-pkgs \
     dev-pkgs \
-    nfs-client"
+    dbg-pkgs \
+    nfs-client \
+    x11-base \
+    hwcodecs"
 
 IMAGE_INSTALL = "\
     packagegroup-core-boot \
@@ -48,6 +51,7 @@ IMAGE_INSTALL = "\
     networkmanager \
     networkmanager-nmcli \
     networkmanager-nmtui \
+    network-manager-applet \
     haveged \
     e2fsprogs-resize2fs \
     e2fsprogs-e2fsck \
@@ -59,6 +63,33 @@ IMAGE_INSTALL = "\
     screen \
     tmux \
     stress-ng \
+    packagegroup-core-x11 \
+    packagegroup-xfce-base \
+    packagegroup-xfce-extended \
+    xrandr \
+    mesa-demos \
+    read-edid \
+    mesa-megadriver \
+    mesa-vulkan-drivers \
+    vulkan-tools \
+    vulkan-loader \
+    vulkan-headers \
+    vulkan-samples \
+    xserver-xorg-utils \
+    xserver-xorg-xvfb \
+    xserver-xorg-extension-dbe \
+    xserver-xorg-extension-dri \
+    xserver-xorg-extension-dri2 \
+    xserver-xorg-extension-extmod \
+    xserver-xorg-extension-glx \
+    xserver-xorg-extension-record \
+    python3-ctypes \
+    xf86-video-ati \
+    xf86-video-amdgpu \
+    xf86-video-modesetting  \
+    xf86-video-fbdev \
+    linux-firmware \
+    quake2 \
     nbd-client \
     mpfr-dev \
     gmp-dev \
@@ -115,7 +146,7 @@ IMAGE_INSTALL = "\
     libcxx-dev \
     libcxx-staticdev \
     openmp \
-    wireless-regdb \
+    wireless-regdb-static \
     info \
     gettext-runtime \
     gperf \
@@ -156,6 +187,13 @@ IMAGE_INSTALL = "\
     libbsd-staticdev \
     mpfr-staticdev \
     openmp-staticdev \
+    epiphany \
+    evince \
+    xdg-utils \
+    libvdpau \
+    gstreamer1.0 \
+    mesa-vdpau-drivers \
+    vdpauinfo \
     patchelf \
     python3-pip \
     python3-setuptools \
@@ -164,10 +202,17 @@ IMAGE_INSTALL = "\
     openssh-sftp-server \
     lmsensors \
     smartmontools \
+    libinput-bin \
     cpupower \
     libubootenv-bin \
     u-boot-tools-mkimage \
     u-boot-tools-mkenvimage \
+    xeyes \
+    xev \
+    xwininfo \
+    xvinfo \
+    x11perf \
+    xdotool \
     tree \
     gdbserver \
     exfat-utils \
@@ -182,11 +227,19 @@ IMAGE_INSTALL = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
     "
 
-IMAGE_INSTALL:append:duowen = "\
-    duowen-udev-rules \
+IMAGE_INSTALL:append:freedom-u540 = " \
+    unleashed-udev-rules \
     "
-#    duowen-systemd-units
 
-inherit core-image extrausers
+IMAGE_INSTALL:append:unmatched = " \
+    unmatched-udev-rules \
+    unmatched-systemd-units \
+    "
+
+inherit core-image features_check extrausers
+
+REQUIRED_DISTRO_FEATURES = "\
+    x11 \
+    systemd"
 
 EXTRA_USERS_PARAMS = "usermod -p '\$6\$PWVNV6MfuO4pMdqO\$54BibXcgV/nXMrgbaMBioGHNDv1uGVFarQN9QnqM8IMOI/nEwnpB5noxJozigw0lObahcmc3lqTMPvLoSpXnP1' root;"

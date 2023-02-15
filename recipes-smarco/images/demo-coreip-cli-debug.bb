@@ -1,4 +1,4 @@
-DESCRIPTION = "SmarCo RISC-V Demo Benchmarks Linux image"
+DESCRIPTION = "SmarCo RISC-V Core IP Demo Benchmarks Linux image"
 
 IMAGE_FEATURES += "\
     splash \
@@ -8,6 +8,7 @@ IMAGE_FEATURES += "\
     tools-profile \
     doc-pkgs \
     dev-pkgs \
+    dbg-pkgs \
     nfs-client"
 
 IMAGE_INSTALL = "\
@@ -182,10 +183,14 @@ IMAGE_INSTALL = "\
     ${CORE_IMAGE_EXTRA_INSTALL} \
     "
 
-IMAGE_INSTALL:append:duowen = "\
-    duowen-udev-rules \
+IMAGE_INSTALL:append:freedom-u540 = "\
+    unleashed-udev-rules \
     "
-#    duowen-systemd-units
+
+IMAGE_INSTALL:append:unmatched = " \
+    unmatched-udev-rules \
+    unmatched-systemd-units \
+    "
 
 inherit core-image extrausers
 
